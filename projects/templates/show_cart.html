@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1>Cart List</h1>
+<script>
+    function deleteItem(title) {
+        fetch("delete/" + title).then(res => {
+            window.location.reload();
+        })
+    }
+</script>
+<div class="row">
+    {% for project in cart %}
+    <div class="card-mb-2">
+        <h1 class="card-title">{{ project.title }}</h1>
+        <img class="card-img-top" src="{% static project.image %}">
+        <button onclick="deleteItem('{{project.title}}')">
+            Delete
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

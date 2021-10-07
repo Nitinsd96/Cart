@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1>Nitin's Shopping List</h1>
+<a href="{% url 'show_cart'%}"
+                   class="btn btn-primary">
+                    Show Cart
+                </a>
+<script>
+    function addToCart(title){
+        fetch("cart/"+title)
+    }
+</script>
+<div class="row">
+{% for project in projects %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static project.image %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+                <button onclick="addToCart('{{project.title}}')"
+                href="{% url 'project_detail' project.title%}"
+                   class="btn btn-primary">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
